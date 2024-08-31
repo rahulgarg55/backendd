@@ -1,0 +1,161 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Country Info API",
+      "version": "1.0.0",
+      "description": "API for searching and retrieving country information"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:5000",
+        "description": "Local development server"
+      }
+    ],
+    "paths": {
+      "/api/countries/search/{name}": {
+        "get": {
+          "summary": "Search countries by name",
+          "tags": ["Countries"],
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The name to search for"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Country"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/countries/{countryCode}": {
+        "get": {
+          "summary": "Get country details by country code",
+          "tags": ["Countries"],
+          "parameters": [
+            {
+              "name": "countryCode",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ISO 3166-1 alpha-2 country code"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Country"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Country": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "properties": {
+                "common": {
+                  "type": "string"
+                },
+                "official": {
+                  "type": "string"
+                }
+              }
+            },
+            "capital": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "region": {
+              "type": "string"
+            },
+            "subregion": {
+              "type": "string"
+            },
+            "population": {
+              "type": "integer"
+            },
+            "languages": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "flags": {
+              "type": "object",
+              "properties": {
+                "png": {
+                  "type": "string"
+                },
+                "svg": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  

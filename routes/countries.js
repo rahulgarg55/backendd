@@ -1,5 +1,5 @@
 /**
- * Provides routes for searching and retrieving country information.
+ * Provides routes for searching and retrieving country information..
  *
  * @module routes/countries
  */
